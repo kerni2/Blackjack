@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 class Player
-  attr_accessor :name, :money, :cards, :cards_value, :quality_a
+  attr_accessor :name, :money, :cards, :cards_value, :quality_a, :score
 
   def initialize(name, money)
     @name = name
@@ -7,6 +9,14 @@ class Player
     @cards = []
     @cards_value = []
     @quality_a = 0
+    @score = 0
+  end
+
+  def set_default
+    @cards = []
+    @cards_value = []
+    @quality_a = 0
+    @score = 0
   end
 
   def take_card
@@ -18,16 +28,16 @@ class Player
 
   def check(card)
     if card.to_s.length == 3
-      return "10"
+      '10'
     elsif card.split(//).first.eql?('Q')
-      return "10"
+      '10'
     elsif card.split(//).first.eql?('J')
-      return "10"
+      '10'
     elsif card.split(//).first.eql?('K')
-      return "10"
+      '10'
     elsif card.split(//).first.eql?('A')
       @quality_a += 1
-      return "A"
+      'A'
     else
       card.split(//).first
     end
@@ -36,22 +46,27 @@ class Player
   def get_score
     score = 0
     @cards_value.each { |card| score += card.to_i }
-    if @quality_a == 1 && score < 10
+    if @quality_a == 1 && score <= 10
       score += 11
-     elsif @quality_a == 2 && score <= 9
+    elsif @quality_a == 2 && score <= 9
       score += 12
     elsif @quality_a == 3 && score <= 8
       score += 13
-    elsif score >= 10
+    elsif score > 10
       score += @quality_a
     else
       score
     end
-    puts score
+    @score = score
   end
 
   def deposit_money
     @money -= 10
   end
-end
 
+  def cards_hand
+    hand = 0
+    @cards.each { |_x| hand += 1 }
+    hand
+  end
+end
