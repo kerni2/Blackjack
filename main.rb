@@ -1,22 +1,27 @@
 require_relative 'player'
 require_relative 'dealer'
+require_relative 'game'
 
-user_name = gets.chomp.to_s
-player = Player.new(user_name, 100)
-dealer = Dealer.new(100)
+puts "Blackjack game!"
+puts "Enter name:"
+$user_name = gets.chomp.to_s
+game = Game.new
+game.new_player
+game.new_dealer
 
 loop do
+  puts "1. Start new game"
+  puts "2. Exit"
   input = gets.chomp.to_i
   case input
   when 1
-    player.pass
+    game.start_game
   when 2
-    player.add_card
-  when 3
-    player.reveal_card
+    break
   end
     rescue StandartError
     puts "error"
 end
+
 
 
