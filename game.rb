@@ -58,7 +58,7 @@ class Game
     when 3
       reveal_card
     when 2
-      player_choose
+      player_choose_end
     end
   end
 
@@ -107,6 +107,27 @@ class Game
         give_card_player
         break
       when 3
+        reveal_card
+        player.set_default
+        dealer.set_default
+        break
+      end
+    end
+  end
+
+  def player_choose_end
+    loop do
+      puts '1. Add card'
+      puts '2. Reveal card'
+      input = gets.chomp.to_i
+      case input
+      when 1
+        give_card_player
+        reveal_card
+        player.set_default
+        dealer.set_default
+        break
+      when 2
         reveal_card
         player.set_default
         dealer.set_default
